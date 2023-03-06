@@ -2,23 +2,53 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 
 function App(){
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(() => {
+    const jsonStorage = localStorage.getItem("todoList");
+    const loadedStorage = JSON.parse(jsonStorage);
+    return loadedStorage || []
+  });
   const [todo, setTodo] = useState("");
   const [todoEditing, setTodoEditing] = useState(null);
   const [editingText, setEditingText] = useState("");
+  const [currentSort, setCurrentSort] = useState("default");
+
+  const compareFn = (todoA, todoB) => {
+    if (todoA.text < todoB.text){
+      return -1;
+    }
+    if (todoA.text > todoB.text){
+      return 1;
+    }
+    return 0;
+  };
+
+  const onSortChange = () => {
+    let newList = [...todoList]
+    newList.sort(compareFn);
+    if (currentSort === 'default' || currentSort === 'up') {
+      newList.reverse();
+    }
+    setTodoList(newList);
+	};
 
   useEffect(() => {
-    const jsonStorage = localStorage.getItem("todoList");
-    const loadedStorage = JSON.parse(jsonStorage);
-    if(loadedStorage) {
-      setTodoList(loadedStorage);
-    }
-  }, [])
+    onSortChange();
+  }, [currentSort])
+
+  // useEffect(() => {
+  //   const jsonStorage = localStorage.getItem("todoList");
+  //   const loadedStorage = JSON.parse(jsonStorage);
+  //   if(loadedStorage) {
+  //     console.log("loadedStorage", loadedStorage)
+  //     setTodoList(loadedStorage);
+  //   }
+  // }, [])
 
   //Guardar os dados em armazenamento local
   useEffect(() => {
     const jsonStorage = JSON.stringify(todoList);
     localStorage.setItem("todoList", jsonStorage);
+    console.log(todoList)
   }, [todoList])
   
   //Evitar que o form ao fazer-se submit perca os dados inseridos -- form preventDefault
@@ -91,7 +121,13 @@ function App(){
           onClick={() => addTodo(todo)}>Create
         </button>
         </form>
-        <p>Task List:</p>
+        <p onClick={() => {
+          if(currentSort === "down"){
+            setCurrentSort("up")
+          } else {
+            setCurrentSort("down")
+          }
+        }}>Task List:</p>
         <ul className="no-bullets">
           {todoList.map((todo) => (
             <li key={todo.id} style={{marginTop: '5px'}}>
@@ -125,36 +161,126 @@ function App(){
 export default App
 
 /*
-                {todoList.map((todo) => (
-        <div key={todo.id} className="todo">
-          <div className="todo-text">
-            <input
-              type="checkbox"
-              id="completed"
-              checked={todoList.completed}
-              onChange={() => toggleCompleted(todo.id)}
-            />
-            {todo.id === todoEditing ? 
-            (<input
-                type="text"
-                onChange={(e) => setEditingText(e.target.value)}
-              />
-            ) : (
-              <div>{todo.text}</div>
-            )}
-          </div>
-          <div className="todo-actions">
-            {todo.id === todoEditing ? 
-            (<button onClick={() => editTodo(todo.id)}>Submit Edits</button>
-            ) : 
-            (<button onClick={() => setTodoEditing(todo.id)}>Edit</button>
-            )}
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-          </div>
-        </div>
-      ))}
+import React, {useState} from "react";
+import "./App.css";
+
+function App(){
+  const [todoList, setTodoList] = useState([]);
+  const [todo, setTodo] = useState("");
+  const [todoEditing, setTodoEditing] = useState(null);
+  const [editingText, setEditingText] = useState("");
+  
+  const addTodo = (todo) => {
+    const newTodo = {
+      id: Math.random(),
+      text: todo,
+      completed: false,
+    };
+    //add the todo to the list
+    setTodoList([...todoList, newTodo]);
+    //clear the input box
+    setTodo("");
+    console.log(todoList);
+  }
+
+  const toggleCompleted = (id) => {
+    const updatedTodos = [...todoList].map((todo) => {
+    if (todo.id === id){
+      todo.completed = !todo.completed;
+    }
+    return todo;
+    })
+
+  }
+  //vai retornar o array de todos, mas modificar o elemento com o id primeiro
+
+  const deleteTodo = (id) => {
+    let filteredTodos = todoList.filter((todo) => todo.id !== id);
+    setTodoList(filteredTodos);
+  }
+
+  const editTodo = (id) => {
+    const updatedTodos = [...todoList].map((todo) => {
+      if (todo.id === id){
+        todo.text = editingText;
+      }
+      return todo;
+    })
+    setTodoList(updatedTodos);
+    setTodoEditing(null);
+    setEditingText("");
+  }
+
+  return (
+    <div class="row" style={{padding:"1em"}}>
+      <div class="column" style={{backgroundColor:"lightgray"}}>
+        <input 
+          style={{width:"80%", height:"30px", }} 
+          type="text" 
+          placeholder="Write your new task here..." 
+          value={todo} 
+          onChange={(e) => setTodo(e.target.value)}></input>
+        <button style={{height:"30px", marginLeft: "20px", float: "right"}} onClick={() => addTodo(todo)}>Create</button>
+        <p>Task List:</p>
+        <ul class="no-bullets">
+          {todoList.map((todo) => (
+            <li key={todo.id} style={{marginTop: '5px'}}>
+              <input type="checkbox" style={{marginRight: '10px'}} onChange={() => toggleCompleted(todo.id)} checked={todo.completed}></input>
+              {todoEditing === todo.id ? (<input 
+                type="text" 
+                onChange={(e) => setEditingText(e.target.value)} 
+                value={editingText} />) : (<>{todo.text}</>)}              
+              <button style={{float:"right"}} onClick={() => deleteTodo(todo.id)}>Delete</button>
+              {todoEditing === todo.id ? (<button style={{float:"right", marginRight: '5px'}} onClick={() => editTodo(todo.id)}>Submit</button>):
+              (<button style={{float:"right", marginRight: '5px'}} onClick={() => setTodoEditing(todo.id)}>Edit</button>)}
+            </li>
+
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+export default App
 
       //testar ver se o form altera o comportamento do localstorage, mas sem resultado
       ordenar A-Z e Z-A
       Remover to-dos com check mark
+
+
+
+      const orderList = () => {
+    let newList, b, i, shouldSwitch, dir, switchCount=0;
+    newList = [...todoList];
+    let switching = true;
+    dir = "asc";
+    while(switching){
+      switching = false;
+      b = newList.text;
+      for (i=0; (b.length-1); i++){
+        shouldSwitch = false;
+        if(dir == "asc"){
+          if(b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+            shouldSwitch= true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        b[i].parentNode.insertBefore(b[i + 1], b[i]);
+        switching = true;
+        switchCount ++;
+      } else {
+        if (switchCount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
 */
