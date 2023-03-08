@@ -3,7 +3,7 @@ function Todo({ todo, toggleCompleted, setEditingText, editingText, todoEditing,
         <input
             type="checkbox"
             checked={todo.completed}
-            style={{ marginRight: '10px' }}
+            style={{ marginRight: '10px', accentColor: "brown"}}
             onChange={() => toggleCompleted(todo.id)}>
         </input>
         {todoEditing === todo.id ?
@@ -13,12 +13,12 @@ function Todo({ todo, toggleCompleted, setEditingText, editingText, todoEditing,
                 value={editingText} />) :
             (<>{todo.text}</>)}
         <button
-            style={{ float: "right" }}
+            className="bttnFunctional"
             onClick={() => deleteTodo(todo.id)}>Delete
         </button>
         {todoEditing === todo.id ?
-            (<button style={{ float: "right", marginRight: '5px' }} onClick={() => editTodo(todo.id)}>Submit</button>) :
-            (<button style={{ float: "right", marginRight: '5px' }} onClick={() => setTodoEditing(todo.id)}>Edit</button>)}
+            (<button className="bttnFunctional" onClick={() => editTodo(todo.id)}>Submit</button>) :
+            (<button className="bttnFunctional" onClick={() => setTodoEditing(todo.id)}>Edit</button>)}
     </li>)
 }
 

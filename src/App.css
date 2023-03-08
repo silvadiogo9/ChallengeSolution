@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -7,21 +8,63 @@ input::placeholder{
   font-style: italic;
 }
 
-.column {
-  float: left;
+.centerdiv{
+  margin: 50px auto;
   width: 50%;
+  border: 2px solid brown;
   padding: 10px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+  background-Color: rgba(236, 232, 232, 0.945);
 }
 
 .no-bullets{
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.taskText{
+  width: 80%;
+  height: 35px;
+  border-radius: 10px;  
+  border: 2px solid brown;
+}
+
+.taskListButton{
+  border: none;
+  background-color: inherit;
+  padding: 13px 0px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: brown;
+  font-weight: bold;
+}
+
+.taskListButton:hover{
+  background: lightgray;
+}
+
+.submit{
+  height: 35px;
+  margin-left: 20px;
+  float: right;
+  border-radius: 10px;
+  border: 2px solid brown;
+  color: brown;
+  font-weight: bold;
+}
+
+.bttnFunctional{
+  border-radius: 7px;
+  border: 2px solid brown;
+  color: brown;
+  font-weight: bold;
+  float: right;
+  margin-right: 5px;
+}
+
+.imageStyle{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

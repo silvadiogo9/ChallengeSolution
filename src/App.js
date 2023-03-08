@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Todo from "./components/todo";
+import image from "./image.png";
 
-//functional component
 function App() {
   const [todoList, setTodoList] = useState(() => {
     const jsonStorage = localStorage.getItem("todoList");
@@ -26,13 +26,12 @@ function App() {
     return 0;
   };
 
-  //useEffect que vai trigar o evento onSortChange() sempre que houverem alterações no estado do currentSort
-
   //Guardar os dados em armazenamento local
+  //sempre que forem feitas alterações na dependência [backupList}, todos os steps/código dentro da função 
+  //vão ser executados
   useEffect(() => {
     const jsonStorage = JSON.stringify(backupList);
     localStorage.setItem("todoList", jsonStorage);
-    console.log(todoList);
   }, [backupList]);
 
   useEffect(() => {
@@ -47,7 +46,7 @@ function App() {
     setTodoList(newTodoList);
   }, [backupList, hideCompleted, currentSort]);
 
-  //Evitar que o form ao fazer-se submit perca os dados inseridos -- form preventDefault
+  //sempre que a dependência for alterada ele vai executar as ações dentro do corpo da função
 
   //Adicionar um to-do à lista
   const addTodo = (todo) => {
@@ -77,16 +76,6 @@ function App() {
     setBackupList(updatedTodos);
   }
 
-
-  // const removedTodos = () => {
-  //   let completedTodos = [...todoList];
-  //   setBackupList(completedTodos);
-  //   completedTodos = todoList.filter((todo) => !todo.completed);
-  //   setTodoList(completedTodos);
-  // }
-
-  //vai retornar o array de todos, mas modificar o elemento com o id primeiro
-
   //Apagar um determinado elemento/to-do da lista
   const deleteTodo = (id) => {
     const filteredTodos = backupList.filter((todo) => todo.id !== id);
@@ -111,32 +100,33 @@ function App() {
   }
 
   return (
-    <div className="row" style={{ padding: "1em" }}>
-      <div className="column" style={{ backgroundColor: "lightgray" }}>
+    <div>
+      <div className="centerdiv">
         <form onSubmit={(e) => e.preventDefault()}>
           <input
-            style={{ width: "80%", height: "30px", }}
+            className="taskText"
             type="text"
             placeholder="Write your new task here..."
             value={todo}
             onChange={(e) => setTodo(e.target.value)}>
           </input>
           <button
+            className="submit"
             type="submit"
-            style={{ height: "30px", marginLeft: "20px", float: "right" }}
             onClick={() => addTodo(todo)}>Create
           </button>
         </form>
-        <p onClick={() => {
+        <button 
+          className="taskListButton"
+          onClick={() => {
           if (currentSort === "down") {
             setCurrentSort("up")
           } else {
             setCurrentSort("down")
           }
-        }}>Task List:</p>
+        }}>Task List:</button>
         <ul className="no-bullets">
           {todoList.map((todo) => (
-            //
             <Todo
               key={todo.id}
               todo={todo}
@@ -148,19 +138,18 @@ function App() {
               editTodo={editTodo}
               setTodoEditing={setTodoEditing} />
           ))}
-          <p>Hide completed
+          <p style={{color: "brown", fontWeight: "bold"}}>Hide completed
             <input
               type="checkbox"
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: '10px', accentColor: "brown" }}
               onChange={() => setHideCompleted(!hideCompleted)
               }>
             </input>
           </p>
         </ul>
       </div>
-    </div>
+      <img src={image} className="imageStyle" alt="Elecctro Logo"></img>
+      </div>
   )
 }
 export default App
-
-//context useEffect
