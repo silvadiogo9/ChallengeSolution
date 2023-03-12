@@ -1,103 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Todo from "./components/todo";
+import { useTodoContext } from "./context/TodoContext";
 import image from "./image.png";
 
 function App() {
-  const [todoList, setTodoList] = useState(() => {
-    const jsonStorage = localStorage.getItem("todoList");
-    const loadedStorage = JSON.parse(jsonStorage);
-    return loadedStorage || []
-  });
+  const {todoList,addTodo} = useTodoContext();
   const [todo, setTodo] = useState("");
-  const [todoEditing, setTodoEditing] = useState(null);
-  const [editingText, setEditingText] = useState("");
-  const [currentSort, setCurrentSort] = useState("default");
+  const [sortDirection, setSortDirection] = useState("desc");
+  const [sortField, setSortField] = useState("creationDate");
   const [hideCompleted, setHideCompleted] = useState(false);
-  const [backupList, setBackupList] = useState([...todoList]);
 
+
+  //todoA[sortField] -> aceder à propriedade dentro do sortField do todoA
   const compareFn = (todoA, todoB) => {
-    if (todoA.text < todoB.text) {
-      return -1;
+    if (todoA[sortField] < todoB[sortField]) {
+      return sortDirection === "asc" ? -1 : 1;
     }
-    if (todoA.text > todoB.text) {
-      return 1;
+    if (todoA[sortField] > todoB[sortField]) {
+      return sortDirection === "asc" ? 1 : -1;
     }
     return 0;
   };
 
-  //Guardar os dados em armazenamento local
-  //sempre que forem feitas alterações na dependência [backupList}, todos os steps/código dentro da função 
-  //vão ser executados
-  useEffect(() => {
-    const jsonStorage = JSON.stringify(backupList);
-    localStorage.setItem("todoList", jsonStorage);
-  }, [backupList]);
-
-  useEffect(() => {
-    let newTodoList = [...backupList];
-    if (hideCompleted) {
-      newTodoList = newTodoList.filter((todo) => !todo.completed);
-    }
-    newTodoList.sort(compareFn);
-    if (currentSort === 'default' || currentSort === 'up') {
-      newTodoList.reverse();
-    }
-    setTodoList(newTodoList);
-  }, [backupList, hideCompleted, currentSort]);
-
   //sempre que a dependência for alterada ele vai executar as ações dentro do corpo da função
 
-  //Adicionar um to-do à lista
-  const addTodo = (todo) => {
-    if (todo === "") {
-      alert("Task text field must be filled!");
-      return false;
-    }
-    const newTodo = {
-      id: Math.random(),
-      text: todo,
-      completed: false,
-    };
-    const newTodoList = [...backupList, newTodo];
-    setBackupList(newTodoList);
-    setTodo("");
-    console.log(todoList);
-  }
-
-  //Marcar as tarefas como completed
-  const toggleCompleted = (id) => {
-    const updatedTodos = [...backupList].map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    });
-    setBackupList(updatedTodos);
-  }
-
-  //Apagar um determinado elemento/to-do da lista
-  const deleteTodo = (id) => {
-    const filteredTodos = backupList.filter((todo) => todo.id !== id);
-    setBackupList(filteredTodos);
-  }
-
-  //Editar um determinado elemento/to-do da lista
-  const editTodo = (id) => {
-    if (editingText === "") {
-      alert("Task text field must be filled!");
-      return false;
-    }
-    const updatedTodos = [...backupList].map((todo) => {
-      if (todo.id === id) {
-        todo.text = editingText;
-      }
-      return todo;
-    })
-    setBackupList(updatedTodos);
-    setTodoEditing(null);
-    setEditingText("");
-  }
 
   return (
     <div>
@@ -116,17 +43,77 @@ function App() {
             onClick={() => addTodo(todo)}>Create
           </button>
         </form>
-        <button 
-          className="taskListButton"
-          onClick={() => {
-          if (currentSort === "down") {
-            setCurrentSort("up")
+        <label>Order By: </label>
+        <select 
+          onChange={(event) => {
+          if (event.currentTarget.value.includes("-")){
+            setSortDirection("desc");
+            setSortField(event.currentTarget.value.slice(1));
           } else {
-            setCurrentSort("down")
+            setSortDirection("asc");
+            setSortField(event.currentTarget.value);
           }
-        }}>Task List:</button>
+        }} >
+          <option value="-creationDate">Creation Date DESC</option>
+          <option value="creationDate">Creation Date ASC</option>
+          <option value="description">A-Z</option>
+          <option value="-description">Z-A</option>
+        </select>
         <ul className="no-bullets">
-          {todoList.map((todo) => (
+              { //vai efetuar o filter e aplicar a primeira condição
+              // se o hideCompleted estiver a true, ele remove os todos que estão a true no completed,
+              // se o hideCompleted estiver a false, ele vai mostrar todos os todos.
+              todoList
+              .filter((todo) => hideCompleted ? !todo.completed : true)
+              .sort(compareFn)
+              .map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+            />
+          ))}
+        </ul>
+        <p style={{color: "brown", fontWeight: "bold"}}>Hide completed
+            <input
+              type="checkbox"
+              style={{ marginLeft: "10px", accentColor: "brown" }}
+              onChange={() => setHideCompleted(!hideCompleted)
+              }>
+            </input>
+          </p>
+      </div>
+      <img src={image} className="imageStyle" alt="Elecctro Logo"></img>
+      </div>
+  )
+}
+export default App
+
+
+/*
+
+<li key={todo.id} style={{ marginTop: '5px' }}>
+        <input
+            type="checkbox"
+            checked={todo.completed}
+            style={{ marginRight: '10px', accentColor: "brown"}}
+            onChange={() => toggleCompleted(todo.id)}>
+        </input>
+        {todoEditing === todo.id ?
+            (<input
+                type="text"
+                onChange={(e) => setEditingText(e.target.value)}
+                value={editingText} />) :
+            (<>{todo.text}</>)}
+        <button
+            className="bttnFunctional"
+            onClick={() => deleteTodo(todo.id)}>Delete
+        </button>
+        {todoEditing === todo.id ?
+            (<button className="bttnFunctional" onClick={() => editTodo(todo.id)}>Submit</button>) :
+            (<button className="bttnFunctional" onClick={() => setTodoEditing(todo.id)}>Edit</button>)}
+    </li>
+
+              {todoList.map((todo) => (
             <Todo
               key={todo.id}
               todo={todo}
@@ -138,18 +125,4 @@ function App() {
               editTodo={editTodo}
               setTodoEditing={setTodoEditing} />
           ))}
-          <p style={{color: "brown", fontWeight: "bold"}}>Hide completed
-            <input
-              type="checkbox"
-              style={{ marginLeft: '10px', accentColor: "brown" }}
-              onChange={() => setHideCompleted(!hideCompleted)
-              }>
-            </input>
-          </p>
-        </ul>
-      </div>
-      <img src={image} className="imageStyle" alt="Elecctro Logo"></img>
-      </div>
-  )
-}
-export default App
+*/
