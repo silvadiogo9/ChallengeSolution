@@ -15,7 +15,7 @@ function TodoList({ todoList, hideCompleted, compareFn }) {
               todo={todo}
             />
           ))
-}
+      }
     </ul>
   );
 }

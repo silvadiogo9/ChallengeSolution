@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function CreateTodoForm({ addTodo }) {
-  const [todo, setTodo] = useState({});
+  const [todoDescription, setTodoDescription] = useState('');
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -9,13 +9,13 @@ function CreateTodoForm({ addTodo }) {
         className="taskText"
         type="text"
         placeholder="Write your new task here..."
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)}
+        value={todoDescription}
+        onChange={(e) => setTodoDescription(e.target.value)}
       />
       <button
         className="submit"
         type="submit"
-        onClick={() => addTodo(todo)}
+        onClick={() => addTodo(todoDescription)}
       >
         Create
       </button>

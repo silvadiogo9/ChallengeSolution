@@ -1,6 +1,9 @@
 import React, {
-  createContext, useContext, useEffect, useState,
+  createContext, useContext, useEffect, useMemo, useState,
 } from 'react';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Swal from 'sweetalert2';
 
 const TodoContext = createContext();
 
@@ -10,6 +13,19 @@ export function TodoProvider({ children }) {
     const loadedStorage = JSON.parse(jsonStorage)
       .map((todo) => ({ ...todo, creationDate: new Date(todo.creationDate) }));
     return loadedStorage || [];
+  });
+  const todoWarning = () => Swal.fire({
+    icon: 'error',
+    title: 'Task text field must be filled!',
+  });
+  const todoSucessfull = () => Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'New task as been added!',
+    width: 250,
+    height: 100,
+    showConfirmButton: false,
+    timer: 1500,
   });
 
   // Guardar os dados em armazenamento local
@@ -23,8 +39,8 @@ export function TodoProvider({ children }) {
   // Adicionar um to-do à lista
   const addTodo = (todoDescription) => {
     if (todoDescription === '') {
-      alert('Task text field must be filled!');
-      return false;
+      todoWarning();
+      return;
     }
     const newTodo = {
       id: Math.random(),
@@ -34,13 +50,15 @@ export function TodoProvider({ children }) {
     };
     const newTodoList = [...todoList, newTodo];
     setTodoList(newTodoList);
+    todoSucessfull();
   };
 
   // Marcar as tarefas como completed
   const toggleCompleted = (todoId) => {
     const updatedTodos = [...todoList].map((todo) => {
       if (todo.id === todoId) {
-        todo.completed = !todo.completed;
+        // todo.completed = !todo.completed;
+        return { ...todo, completed: !todo.completed };
       }
       return todo;
     });
@@ -56,27 +74,34 @@ export function TodoProvider({ children }) {
   // Editar um determinado elemento/to-do da lista
   const editTodoDescription = (todoId, todoDescription) => {
     if (todoDescription === '') {
-      alert('Task description field must be filled!');
-      return false;
+      todoWarning();
+      return;
     }
     const updatedTodos = [...todoList].map((todo) => {
       if (todo.id === todoId) {
-        todo.description = todoDescription;
+        return { ...todo, description: todoDescription };
       }
       return todo;
     });
     setTodoList(updatedTodos);
   };
 
+  // Guarda estes valores em memória. Dependências dentro dos []. Mesma lógica que um useEffect()
+  // sempre que as depedências são modificadas. Valor proposto pelo ESLint (useMemo). O react vai
+  // queixar-se se as funções não estivessem nas depedências. Busca de valores que já foram pedidos
+  // antes e guardados em memória, através das funções que realmente foram passadas nas depedências
+  // e que retornam algum valor.
+  const value = useMemo(() => ({
+    todoList,
+    addTodo,
+    deleteTodo,
+    toggleCompleted,
+    editTodoDescription,
+  }), [todoList, addTodo, deleteTodo, toggleCompleted, editTodoDescription]);
+
   return (
     <TodoContext.Provider
-      value={{
-        todoList,
-        addTodo,
-        deleteTodo,
-        toggleCompleted,
-        editTodoDescription,
-      }}
+      value={value}
     >
       {children}
     </TodoContext.Provider>

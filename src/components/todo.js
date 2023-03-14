@@ -33,7 +33,7 @@ function Todo({ todo }) {
           </>
         )}
       <ActionButton
-        action={deleteTodo(todo.id)}
+        action={() => deleteTodo(todo.id)}
         text="Delete"
       />
       {isEditing
@@ -48,7 +48,7 @@ function Todo({ todo }) {
         )
         : (
           <ActionButton
-            action={setIsEditing(true)}
+            action={() => setIsEditing(true)}
             text="Edit"
           />
         )}
