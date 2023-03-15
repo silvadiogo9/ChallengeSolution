@@ -17,6 +17,7 @@ export function TodoProvider({ children }) {
   const todoWarning = () => Swal.fire({
     icon: 'error',
     title: 'Task text field must be filled!',
+    heightAuto: false,
   });
   const todoSucessfull = () => Swal.fire({
     position: 'top-end',
@@ -26,6 +27,7 @@ export function TodoProvider({ children }) {
     height: 100,
     showConfirmButton: false,
     timer: 1500,
+    heightAuto: false,
   });
 
   // Guardar os dados em armazenamento local

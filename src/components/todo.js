@@ -8,11 +8,15 @@ function Todo({ todo }) {
   const { deleteTodo, toggleCompleted, editTodoDescription } = useTodoContext();
 
   return (
-    <li style={{ marginTop: '5px' }}>
+    <li style={{
+      marginTop: '5px',
+      background: todo.completed ? '#ffbb00' : 'none',
+    }}
+    >
       <input
         type="checkbox"
         checked={todo.completed}
-        style={{ marginRight: '10px', accentColor: 'brown' }}
+        className="checked"
         onChange={() => toggleCompleted(todo.id)}
       />
       {isEditing

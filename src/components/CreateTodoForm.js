@@ -4,7 +4,7 @@ function CreateTodoForm({ addTodo }) {
   const [todoDescription, setTodoDescription] = useState('');
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form style={{ marginBottom: '10px' }} onSubmit={(e) => e.preventDefault()}>
       <input
         className="taskText"
         type="text"

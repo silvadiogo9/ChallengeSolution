@@ -3,6 +3,21 @@
   box-sizing: border-box;
 }
 
+#root{
+  top: 25%;
+  position: sticky;
+}
+
+html, body{
+  background: linear-gradient(35deg, yellow, #ff6a00);
+  height: 100%;
+}
+
+html{
+  background-image: url(image.png);
+  background-repeat: no-repeat;
+}
+
 input::placeholder{
   font-size: 1.1em;
   font-style: italic;
@@ -10,8 +25,9 @@ input::placeholder{
 
 .centerdiv{
   margin: 50px auto;
-  width: 50%;
+  width: 35%;
   border: 2px solid brown;
+  border-radius: 10px;
   padding: 10px;
   background-Color: rgba(236, 232, 232, 0.945);
 }
@@ -42,6 +58,7 @@ input::placeholder{
 
 .taskListButton:hover{
   background: lightgray;
+  cursor: pointer;
 }
 
 .submit{
@@ -52,6 +69,7 @@ input::placeholder{
   border: 2px solid brown;
   color: brown;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .bttnFunctional{
@@ -61,10 +79,33 @@ input::placeholder{
   font-weight: bold;
   float: right;
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .imageStyle{
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+ul li input.checked {
+  margin-Right: 10px;
+  accent-color: brown;
+  cursor: pointer;
+}
+
+select {
+  font: inherit;
+  height: 2em;
+  padding: 0 2em 0 1em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left);
+  border-radius: 0.5em;
+  cursor: pointer;  
+}
+
+option {
+  color: black;
+  background-color: #ffbb00;
 }

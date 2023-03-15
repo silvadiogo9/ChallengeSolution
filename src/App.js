@@ -3,7 +3,6 @@ import './App.css';
 import TodoList from './components/TodoList';
 import CreateTodoForm from './components/CreateTodoForm';
 import { useTodoContext } from './context/TodoContext';
-import image from './image.png';
 
 function App() {
   const { todoList, addTodo } = useTodoContext();
@@ -61,7 +60,6 @@ function App() {
           />
         </p>
       </div>
-      <img src={image} className="imageStyle" alt="Elecctro Logo" />
     </div>
   );
 }
