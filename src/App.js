@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import image from './image.png';
 import TodoList from './components/TodoList';
 import CreateTodoForm from './components/CreateTodoForm';
 import { useTodoContext } from './context/TodoContext';
@@ -25,6 +26,8 @@ function App() {
 
   return (
     <div>
+      <img src={image} className="logo" alt="Elecctro Logo" />
+      <h1 style={{ textAlign: 'center' }}>React Challenge</h1>
       <div className="centerdiv">
         <CreateTodoForm
           addTodo={addTodo}
