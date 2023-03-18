@@ -11,6 +11,7 @@ function Todo({ todo }) {
     <li style={{
       marginTop: '5px',
       background: todo.completed ? '#ffbb00' : 'none',
+      wordWrap: 'break-word',
     }}
     >
       <input

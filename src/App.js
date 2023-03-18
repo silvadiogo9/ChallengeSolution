@@ -27,7 +27,7 @@ function App() {
   return (
     <div>
       <img src={image} className="logo" alt="Elecctro Logo" />
-      <h1 style={{ textAlign: 'center' }}>React Challenge</h1>
+      <h1>To-do List</h1>
       <div className="centerdiv">
         <CreateTodoForm
           addTodo={addTodo}
@@ -67,3 +67,7 @@ function App() {
   );
 }
 export default App;
+
+// colocar botão de cancelar o edit, o scroll para os items da lista, colocar
+// o Order by mais bonito, alterar para algum estilo mais bonito (talvez),
+// colocar slogan (se houver)

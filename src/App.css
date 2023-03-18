@@ -20,7 +20,7 @@ html, body{
 } */
 
 .logo{
-  width:250px;
+  width: 250px;
   height: 80px;
   margin: 20px 0px 0px 20px;
 }
@@ -72,23 +72,35 @@ input::placeholder{
 
 .submit{
   height: 35px;
-  margin-left: 20px;
+  margin-right: 5px;
   float: right;
   border-radius: 10px;
   border: 2px solid brown;
-  color: brown;
+  background-color: brown;
+  color: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+.submit:hover{
+  background-color: white;
+  color: brown;
 }
 
 .bttnFunctional{
   border-radius: 7px;
   border: 2px solid brown;
-  color: brown;
+  background-color: brown;
+  color: white;
   font-weight: bold;
   float: right;
   margin-right: 5px;
   cursor: pointer;
+}
+
+.bttnFunctional:hover{
+  background-color: white;
+  color: brown;
 }
 
 .imageStyle{
@@ -117,4 +129,11 @@ select {
 option {
   color: black;
   background-color: #ffbb00;
+}
+
+h1 {
+  text-align: center;
+  font-family: Arial;
+  color: brown;
+  font-size: 3em;
 }
