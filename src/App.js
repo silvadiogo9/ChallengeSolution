@@ -32,7 +32,7 @@ function App() {
         <CreateTodoForm
           addTodo={addTodo}
         />
-        <span>Order By: </span>
+        <span className="spanstyle">Order By:</span>
         <select
           onChange={(event) => {
             if (event.currentTarget.value.includes('-')) {
@@ -54,11 +54,11 @@ function App() {
           hideCompleted={hideCompleted}
           compareFn={compareFn}
         />
-        <p style={{ color: 'brown', fontWeight: 'bold' }}>
+        <p>
           Hide completed
           <input
             type="checkbox"
-            style={{ marginLeft: '10px', accentColor: 'brown' }}
+            style={{ marginLeft: '10px', accentColor: '#4d4f4a' }}
             onChange={() => setHideCompleted(!hideCompleted)}
           />
         </p>
@@ -68,6 +68,6 @@ function App() {
 }
 export default App;
 
-// colocar botão de cancelar o edit, o scroll para os items da lista, colocar
-// o Order by mais bonito, alterar para algum estilo mais bonito (talvez),
+// o scroll para os items da lista, colocar
+// erro que está a dar
 // colocar slogan (se houver)

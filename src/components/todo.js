@@ -22,43 +22,60 @@ function Todo({ todo }) {
       />
       {isEditing
         ? (
-          <input
-            type="text"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
+          [
+            <input
+              type="text"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />,
+            <ActionButton
+              action={() => {
+                editTodoDescription(todo.id, todo.description);
+                setDescription(todo.description);
+                setIsEditing(false);
+              }}
+              text="Cancel"
+            />,
+            <ActionButton
+              action={() => {
+                editTodoDescription(todo.id, description);
+                setIsEditing(false);
+              }}
+              text="Submit"
+            />,
+          ]
         )
         : (
-          <>
-            {
-            // verificar!!! estava sem o {' '}
+          [
+            <>
+              {
             }
-            {' '}
-            {todo.description}
-          </>
-        )}
-      <ActionButton
-        action={() => deleteTodo(todo.id)}
-        text="Delete"
-      />
-      {isEditing
-        ? (
-          <ActionButton
-            action={() => {
-              editTodoDescription(todo.id, description);
-              setIsEditing(false);
-            }}
-            text="Submit"
-          />
-        )
-        : (
-          <ActionButton
-            action={() => setIsEditing(true)}
-            text="Edit"
-          />
+              {' '}
+              {todo.description}
+            </>,
+            <ActionButton
+              action={() => deleteTodo(todo.id)}
+              text="Delete"
+            />,
+            <ActionButton
+              action={() => setIsEditing(true)}
+              text="Edit"
+            />,
+          ]
         )}
     </li>
   );
 }
 
 export default Todo;
+
+/* Warning: Each child in a list should have a unique "key" prop.
+
+Check the render method of `Todo`. See https://reactjs.org/link/warning-keys for more information.
+    at Todo (http://localhost:3000/static/js/bundle.js:409:5)
+    at ul
+    at TodoList (http://localhost:3000/static/js/bundle.js:546:5)
+    at div
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:40:75)
+    at TodoProvider (http://localhost:3000/static/js/bundle.js:639:5) */

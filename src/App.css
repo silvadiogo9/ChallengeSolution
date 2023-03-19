@@ -33,11 +33,10 @@ input::placeholder{
 .centerdiv{
   margin: auto;
   width: 41%;
-  border: 2px solid brown;
+  border: 2px solid #4d4f4a;
   border-radius: 10px;
   padding: 10px;
   background-Color: rgba(236, 232, 232, 0.945);
-  /* top: 150px; */
   position: relative;
 }
 
@@ -51,7 +50,7 @@ input::placeholder{
   width: 80%;
   height: 35px;
   border-radius: 10px;  
-  border: 2px solid brown;
+  border: 2px solid #4d4f4a;
 }
 
 .taskListButton{
@@ -61,7 +60,7 @@ input::placeholder{
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
-  color: brown;
+  color: #4d4f4a;
   font-weight: bold;
 }
 
@@ -75,8 +74,8 @@ input::placeholder{
   margin-right: 5px;
   float: right;
   border-radius: 10px;
-  border: 2px solid brown;
-  background-color: brown;
+  border: 2px solid #4d4f4a;
+  background-color: #4d4f4a;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -84,13 +83,13 @@ input::placeholder{
 
 .submit:hover{
   background-color: white;
-  color: brown;
+  color: #4d4f4a;
 }
 
 .bttnFunctional{
   border-radius: 7px;
-  border: 2px solid brown;
-  background-color: brown;
+  border: 2px solid #4d4f4a;
+  background-color: #4d4f4a;
   color: white;
   font-weight: bold;
   float: right;
@@ -100,7 +99,7 @@ input::placeholder{
 
 .bttnFunctional:hover{
   background-color: white;
-  color: brown;
+  color: #4d4f4a;
 }
 
 .imageStyle{
@@ -111,7 +110,7 @@ input::placeholder{
 
 ul li input.checked {
   margin-Right: 10px;
-  accent-color: brown;
+  accent-color: #4d4f4a;
   cursor: pointer;
 }
 
@@ -123,7 +122,8 @@ select {
       no-repeat right 0.8em center / 1.4em,
     linear-gradient(to left);
   border-radius: 0.5em;
-  cursor: pointer;  
+  cursor: pointer;
+
 }
 
 option {
@@ -134,6 +134,20 @@ option {
 h1 {
   text-align: center;
   font-family: Arial;
-  color: brown;
+  color: #4d4f4a;
   font-size: 3em;
+}
+
+.spanstyle {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #4d4f4a;
+  margin-right: 5px;
+}
+
+p {
+  color: #4d4f4a;
+  font-weight: bold;
+  font-size: 1.2em;
 }

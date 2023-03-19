@@ -15,7 +15,10 @@ function CreateTodoForm({ addTodo }) {
       <button
         className="submit"
         type="submit"
-        onClick={() => addTodo(todoDescription)}
+        onClick={() => {
+          addTodo(todoDescription);
+          setTodoDescription('');
+        }}
       >
         Create
       </button>
