@@ -9,7 +9,7 @@ function Todo({ todo }) {
 
   return (
     <li style={{
-      marginTop: '5px',
+      marginTop: '10px',
       background: todo.completed ? '#ffbb00' : 'none',
       wordWrap: 'break-word',
     }}

@@ -49,16 +49,18 @@ function App() {
           <option value="description">A-Z</option>
           <option value="-description">Z-A</option>
         </select>
-        <TodoList
-          todoList={todoList}
-          hideCompleted={hideCompleted}
-          compareFn={compareFn}
-        />
+        <div className="scroll">
+          <TodoList
+            todoList={todoList}
+            hideCompleted={hideCompleted}
+            compareFn={compareFn}
+          />
+        </div>
         <p>
           Hide completed
           <input
             type="checkbox"
-            style={{ marginLeft: '10px', accentColor: '#4d4f4a' }}
+            style={{ marginLeft: '10px', accentColor: '#4d4f4a', cursor: 'pointer' }}
             onChange={() => setHideCompleted(!hideCompleted)}
           />
         </p>
