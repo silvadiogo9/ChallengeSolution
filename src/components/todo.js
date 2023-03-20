@@ -10,8 +10,9 @@ function Todo({ todo }) {
   return (
     <li style={{
       marginTop: '10px',
-      background: todo.completed ? '#ffbb00' : 'none',
+      background: todo.completed ? 'rgb(240 136 0)' : 'none',
       wordWrap: 'break-word',
+      borderRadius: '7px',
     }}
     >
       <input
@@ -22,12 +23,12 @@ function Todo({ todo }) {
       />
       {isEditing
         ? (
-          [
+          <>
             <input
               type="text"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
-            />,
+            />
             <ActionButton
               action={() => {
                 editTodoDescription(todo.id, todo.description);
@@ -35,33 +36,33 @@ function Todo({ todo }) {
                 setIsEditing(false);
               }}
               text="Cancel"
-            />,
+            />
             <ActionButton
               action={() => {
                 editTodoDescription(todo.id, description);
                 setIsEditing(false);
               }}
               text="Submit"
-            />,
-          ]
+            />
+          </>
         )
         : (
-          [
+          <>
             <>
               {
             }
               {' '}
               {todo.description}
-            </>,
+            </>
             <ActionButton
               action={() => deleteTodo(todo.id)}
               text="Delete"
-            />,
+            />
             <ActionButton
               action={() => setIsEditing(true)}
               text="Edit"
-            />,
-          ]
+            />
+          </>
         )}
     </li>
   );

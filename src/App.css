@@ -14,11 +14,6 @@ html, body{
   height: 100%;
 }
 
-/* html{
-  background-image: url(image.png);
-  background-repeat: no-repeat;
-} */
-
 .logo{
   width: 250px;
   height: 80px;
@@ -33,10 +28,10 @@ input::placeholder{
 .centerdiv{
   margin: auto;
   width: 41%;
-  border: 2px solid #4d4f4a;
+  /*border: 2px solid #4d4f4a;*/
   border-radius: 10px;
   padding: 10px;
-  background-Color: rgba(236, 232, 232, 0.945);
+  /*background-Color: rgba(236, 232, 232, 0.945);*/
   position: relative;
 }
 
@@ -82,6 +77,7 @@ input::placeholder{
 }
 
 .submit:hover{
+  border: 2px solid #4d4f4a;
   background-color: white;
   color: #4d4f4a;
 }
@@ -98,6 +94,7 @@ input::placeholder{
 }
 
 .bttnFunctional:hover{
+  border: 2px solid #4d4f4a;
   background-color: white;
   color: #4d4f4a;
 }
@@ -112,6 +109,8 @@ ul li input.checked {
   margin-Right: 10px;
   accent-color: #4d4f4a;
   cursor: pointer;
+  width: 15px;
+  height: 15px;
 }
 
 select {
