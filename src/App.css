@@ -10,7 +10,7 @@
 }
 
 html, body{
-  background: linear-gradient(35deg, yellow, #ff6a00);
+  background: linear-gradient(35deg, #fcf952, #ff9147);
   height: 100%;
 }
 
@@ -103,6 +103,12 @@ input::placeholder{
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+li {
+  margin-top: 10px;
+  word-wrap: break-word;
+  border-radius: 7px;
 }
 
 ul li input.checked {

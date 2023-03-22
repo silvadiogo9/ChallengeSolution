@@ -69,7 +69,3 @@ function App() {
   );
 }
 export default App;
-
-// o scroll para os items da lista, colocar
-// erro que está a dar
-// colocar slogan (se houver)

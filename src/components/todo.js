@@ -9,10 +9,7 @@ function Todo({ todo }) {
 
   return (
     <li style={{
-      marginTop: '10px',
-      background: todo.completed ? 'rgb(240 136 0)' : 'none',
-      wordWrap: 'break-word',
-      borderRadius: '7px',
+      background: todo.completed ? '#f9a035' : 'none',
     }}
     >
       <input
@@ -48,12 +45,7 @@ function Todo({ todo }) {
         )
         : (
           <>
-            <>
-              {
-            }
-              {' '}
-              {todo.description}
-            </>
+            {todo.description}
             <ActionButton
               action={() => deleteTodo(todo.id)}
               text="Delete"
@@ -69,14 +61,3 @@ function Todo({ todo }) {
 }
 
 export default Todo;
-
-/* Warning: Each child in a list should have a unique "key" prop.
-
-Check the render method of `Todo`. See https://reactjs.org/link/warning-keys for more information.
-    at Todo (http://localhost:3000/static/js/bundle.js:409:5)
-    at ul
-    at TodoList (http://localhost:3000/static/js/bundle.js:546:5)
-    at div
-    at div
-    at App (http://localhost:3000/static/js/bundle.js:40:75)
-    at TodoProvider (http://localhost:3000/static/js/bundle.js:639:5) */

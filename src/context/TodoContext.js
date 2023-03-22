@@ -30,9 +30,6 @@ export function TodoProvider({ children }) {
     heightAuto: false,
   });
 
-  // Guardar os dados em armazenamento local
-  // sempre que forem feitas alterações na dependência [todoList}, todos os steps/código dentro da
-  // função vão ser executados
   useEffect(() => {
     const jsonStorage = JSON.stringify(todoList);
     localStorage.setItem('todoList', jsonStorage);
@@ -88,11 +85,6 @@ export function TodoProvider({ children }) {
     setTodoList(updatedTodos);
   };
 
-  // Guarda estes valores em memória. Dependências dentro dos []. Mesma lógica que um useEffect()
-  // sempre que as depedências são modificadas. Valor proposto pelo ESLint (useMemo). O react vai
-  // queixar-se se as funções não estivessem nas depedências. Busca de valores que já foram pedidos
-  // antes e guardados em memória, através das funções que realmente foram passadas nas depedências
-  // e que retornam algum valor.
   const value = useMemo(() => ({
     todoList,
     addTodo,
