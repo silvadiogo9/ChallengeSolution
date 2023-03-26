@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import image from './image.png';
 import TodoList from './components/TodoList';
 import CreateTodoForm from './components/CreateTodoForm';
 import { useTodoContext } from './context/TodoContext';
@@ -22,33 +21,39 @@ function App() {
     return 0;
   };
 
-  // sempre que a dependência for alterada ele vai executar as ações dentro do corpo da função
-
   return (
     <div>
-      <img src={image} className="logo" alt="Elecctro Logo" />
       <h1>To-do List</h1>
       <div className="centerdiv">
         <CreateTodoForm
           addTodo={addTodo}
         />
-        <span className="spanstyle">Order By:</span>
-        <select
-          onChange={(event) => {
-            if (event.currentTarget.value.includes('-')) {
-              setSortDirection('desc');
-              setSortField(event.currentTarget.value.slice(1));
-            } else {
-              setSortDirection('asc');
-              setSortField(event.currentTarget.value);
-            }
-          }}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '50px',
+          marginBottom: '50px',
+          alignItems: 'center',
+        }}
         >
-          <option value="-creationDate">Creation Date DESC</option>
-          <option value="creationDate">Creation Date ASC</option>
-          <option value="description">A-Z</option>
-          <option value="-description">Z-A</option>
-        </select>
+          <span className="spanstyle">Order by:</span>
+          <select
+            onChange={(event) => {
+              if (event.currentTarget.value.includes('-')) {
+                setSortDirection('desc');
+                setSortField(event.currentTarget.value.slice(1));
+              } else {
+                setSortDirection('asc');
+                setSortField(event.currentTarget.value);
+              }
+            }}
+          >
+            <option value="-creationDate">Creation Date DESC</option>
+            <option value="creationDate">Creation Date ASC</option>
+            <option value="description">A-Z</option>
+            <option value="-description">Z-A</option>
+          </select>
+        </div>
         <div className="scroll">
           <TodoList
             todoList={todoList}

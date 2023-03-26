@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import ActionButton from './ActionButton';
 
 function CreateTodoForm({ addTodo }) {
   const [todoDescription, setTodoDescription] = useState('');
 
   return (
-    <form style={{ marginBottom: '10px' }} onSubmit={(e) => e.preventDefault()}>
+    <form style={{ marginBottom: '10px', display: 'flex' }} onSubmit={(e) => e.preventDefault()}>
       <input
         className="taskText"
         type="text"
@@ -12,16 +14,15 @@ function CreateTodoForm({ addTodo }) {
         value={todoDescription}
         onChange={(e) => setTodoDescription(e.target.value)}
       />
-      <button
-        className="submit"
+      <ActionButton
         type="submit"
-        onClick={() => {
+        action={() => {
           addTodo(todoDescription);
           setTodoDescription('');
         }}
-      >
-        Create
-      </button>
+        icon={faAdd}
+        color="#292929"
+      />
     </form>
   );
 }
